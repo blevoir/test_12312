@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <h1>
+            {{ film.title }}
+        </h1>
+        <p>
+            {{ film.description }}
+        </p>
+        <div>
+            {{ film.releaseDate|date('d/m/Y') }}
+        </div>
+        <ul>
+            {% for character in film.characters %}
+                <li>{{ character.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ path('app_index') }}">Retour</a>
+    </div>
+{% endblock %}

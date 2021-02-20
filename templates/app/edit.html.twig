@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.releaseDate) }}
+            {{ form_row(form.description) }}
+
+            {{ form_label(form.characters) }}
+            <ul id="character-container"
+                data-prototype="{{ form_widget(form.characters.vars.prototype)|e }}"
+                data-widget-tags="<li></li>"
+                data-widget-counter="{{ form.characters|length }}">
+                {% for character in form.characters %}
+                    <li>{{ form_row(character) }}</li>
+                {% endfor %}
+            </ul>
+            <button type="button" class="btn btn-primary" id="collection-add">Ajouter personnage</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {{ form_end(form) }}
+    </div>
+    <div>
+        <a href="{{ path('app_index') }}">Retour</a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(function() {
+            $('#collection-add').on('click', function(e) {
+                e.preventDefault();
+                var container = $('#character-container');
+                var counter = container.data('widget-counter');
+                var newWidget = container.data('prototype');
+                newWidget = newWidget.replace(/__name__/g, counter);
+                counter++;
+                container.data('widget-counter', counter);
+                var newElem = jQuery(container.attr('data-widget-tags')).html(newWidget);
+                newElem.appendTo(container);
+            });
+        });
+    </script>
+{% endblock %}
