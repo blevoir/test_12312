@@ -22,6 +22,7 @@ class Film
     private $id;
 
     /**
+     *
      * Titre du film
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
@@ -30,22 +31,31 @@ class Film
     private $title;
 
     /**
+     * Résumé
+     *
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * Date de sortie
+     *
      * @ORM\Column(type="date")
      * @Assert\NotBlank()
      */
     private $releaseDate;
 
     /**
+     * Personnages
+     *
      * @ORM\OneToMany(targetEntity=Character::class, mappedBy="film", orphanRemoval=true)
      * @Assert\Valid()
      */
     private $characters;
 
+    /**
+     * Film constructor.
+     */
     public function __construct()
     {
         $this->characters = new ArrayCollection();

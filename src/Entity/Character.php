@@ -22,6 +22,7 @@ class Character
 
     /**
      * Nom du personnage
+     *
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(max="255")
@@ -29,6 +30,8 @@ class Character
     private $name;
 
     /**
+     * Film attaché
+     * 
      * @ORM\ManyToOne(targetEntity=Film::class, inversedBy="characters")
      * @ORM\JoinColumn(nullable=false)
      */
